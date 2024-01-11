@@ -14,7 +14,7 @@
 
   ```
   git clone git@github.com:programkingstar/task-management-go.git
-  cd n
+  cd task-management-go
   ```
 
 - ##### Setup and Run server
@@ -219,6 +219,4 @@ See Documentation REST API in here:
 
 ## TODO
 
-- [ ] Create an Open API Docs
 - [ ] Cover all Test
-- [ ] Create UI

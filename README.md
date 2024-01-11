@@ -13,7 +13,7 @@
   Make sure your git is setup using ssh-key and already in your code working directory
 
   ```
-  git clone git@github.com:Kbgjtn/n.git
+  git clone git@github.com:programkingstar/task-management-go.git
   cd n
   ```
 
@@ -34,11 +34,11 @@
   ```
 - ##### Test API
 
-  **Get Quote** (positive int)
+  **Get Task** (positive int)
 
   ```
-  # GET /quotes/:id
-  curl -i -X GET http://127.0.0.1:3000/api/quotes/1
+  # GET /tasks/:id
+  curl -i -X GET http://127.0.0.1:3000/api/tasks/1
   ```
 
   **Response**
@@ -50,23 +50,23 @@
   Content-Length: 158
 
   {
-    "data": {
-      "id": 1,
-      "content": "My first quote",
-      "author_id": 1,
-      "category_id": 1,
-      "created_at": "2023-12-29T13:53:57.33503Z",
-      "updated_at": "2023-12-29T13:53:57.33503Z"
-      }
+    "data": 
+    {
+      "id":1,
+      "title":"My first task",
+      "desc":"Test",
+      "priority":1,
+      "duedate":"2024-01-11T23:02:24.317453Z"
     }
+  }
 
   ```
 
-  **List Quotes**
+  **List Tasks**
 
   ```
-  # GET /quotes/:id (positive int)
-  curl -i -X GET http://127.0.0.1:3000/api/quotes
+  # GET /tasks/:id (positive int)
+  curl -i -X GET http://127.0.0.1:3000/api/tasks
   ```
 
   **Response**
@@ -78,50 +78,48 @@
 
   {
     "data": [
-      {
-        "id": 1,
-        "content": "My first quote",
-        "author_id": 1,
-        "category_id": 1,
-        "created_at": "2023-12-29T13:53:57.33503Z",
-        "updated_at": "2023-12-29T13:53:57.33503Z"
-      },
-      {
-        "id": 2,
-        "content": "My second quote",
-        "author_id": 2,
-        "category_id": 2,
-        "created_at": "2023-12-29T13:53:57.33503Z",
-        "updated_at": "2023-12-29T13:53:57.33503Z"
-      },
-      {
-        "id": 3,
-        "content": "My third quote",
-        "author_id": 3,
-        "category_id": 3,
-        "created_at": "2023-12-29T13:53:57.33503Z",
-        "updated_at": "2023-12-29T13:53:57.33503Z"
-      }
+        {
+            "id": 1,
+            "title": "My first task",
+            "desc": "Test",
+            "priority": 1,
+            "duedate": "2024-01-11T23:02:24.317453Z"
+        },
+        {
+            "id": 2,
+            "title": "My second task",
+            "desc": "Test",
+            "priority": 2,
+            "duedate": "2024-01-11T23:02:24.317453Z"
+        },
+        {
+            "id": 3,
+            "title": "My third task",
+            "desc": "Test",
+            "priority": 3,
+            "duedate": "2024-01-11T23:02:24.317453Z"
+        }
     ],
     "length": 3,
     "paginate": {
-      "offset": 0,
-      "limit": 10,
-      "total": 3,
-      "prev": 0,
-      "next": 3,
-      "has_next": false,
-      "has_prev": false
+        "offset": 0,
+        "limit": 10,
+        "total": 3,
+        "prev": 0,
+        "next": 3,
+        "has_next": false,
+        "has_prev": false
     }
   }
+
   ```
 
-  **Create Quote**
+  **Create Task**
 
   ```
   curl -v -XPOST -H "Content-type: application/json" \
-  -d '{"author_id": 1, "content": "Hello World!", "category_id": 1 }' \
-  '127.0.0.1:3000/api/quotes'
+  -d '{"title": "Task4", "desc": "Hello, Task" ,"priority": 1 }' \
+  '127.0.0.1:3000/api/tasks'
 
   ```
 
@@ -130,7 +128,7 @@
   ```
   Trying 127.0.0.1:3000...*
   Connected to 127.0.0.1 (127.0.0.1) port 3000
-  > POST /api/quotes HTTP/1.1
+  > POST /api/tasks HTTP/1.1
   > Host: 127.0.0.1:3000
   > User-Agent: curl/8.4.0
   > Accept: */*
@@ -144,22 +142,22 @@
   <* Connection #0 to host 127.0.0.1 left intact
 
   {
-  	"data": {
-  		"id":4,
-  		"content":"Hello World!",
-  		"author_id":1,
-  		"category_id":1,
-  		"created_at":"2023-12-29T14:14:25.889183Z",
-  		"updated_at":"2023-12-29T14:14:25.889183Z"
-  	}
+    "data": {
+        "id": 4,
+        "title": "Task4",
+        "desc": "Hello, Task",
+        "priority": 1,
+        "duedate": "2024-01-11T23:07:42.478092Z"
+    }
   }
   ```
 
-  **Update Quote** (id: positive int)
+  **Update Task** (id: positive int)
 
   ```
   curl -v -XPUT -H "Content-type: application/json" \
-  -d '{"author_id": 1, "content": "Test!", "category_id": 1 }'\  	'127.0.0.1:3000/api/quotes/4'
+  -d '{"id": 4, "title": "NewTask", "desc": "Hello", "priority": 2 }'\  	
+  '127.0.0.1:3000/api/tasks/4'
   ```
 
   **Response**
@@ -167,7 +165,7 @@
   ```
   Trying 127.0.0.1:3000...*
   Connected to 127.0.0.1 (127.0.0.1) port 3000
-  > POST /api/quotes/4 HTTP/1.1
+  > POST /api/tasks/4 HTTP/1.1
   > Host: 127.0.0.1:3000
   > User-Agent: curl/8.4.0
   > Accept: */*
@@ -181,21 +179,20 @@
   <* Connection #0 to host 127.0.0.1 left intact
 
   {
-  	"data": {
-  		"id":4,
-  		"content":"Test!",
-  		"author_id":1,
-  		"category_id":1,
-  		"created_at":"2023-12-29T14:14:25.889183Z",
-  		"updated_at":"2023-12-29T14:14:25.889183Z"
-  	}
+    "data": {
+        "id": 4,
+        "title": "NewTask",
+        "desc": "Hello",
+        "priority": 2,
+        "duedate": "2024-01-11T23:11:59.742527Z"
+    }
   }
   ```
 
-  **Delete Quote**
+  **Delete Task**
 
   ```
-  curl -v -XDELETE '127.0.0.1:3000/api/quotes/4'
+  curl -v -XDELETE '127.0.0.1:3000/api/tasks/4'
   ```
 
   **Response**
@@ -203,7 +200,7 @@
   ```
   *   Trying 127.0.0.1:3000...
   * Connected to 127.0.0.1 (127.0.0.1) port 3000
-  > DELETE /api/quotes/4 HTTP/1.1
+  > DELETE /api/tasks/4 HTTP/1.1
   > Host: 127.0.0.1:3000
   > User-Agent: curl/8.4.0
   > Accept: */*
@@ -218,7 +215,7 @@
 ## OpenAPI Doc
 
 See Documentation REST API in here:
-[Read Docs](https://github.com/Kbgjtn/n/tree/main/docs/swagger.json) or if you're running the server: [Go to Open API](http://localhost:3000/openapi)
+[Read Docs](https://github.com/programkingstar/task-management-go/tree/main/docs/swagger.json) or if you're running the server: [Go to Open API](http://localhost:3000/openapi)
 
 ## TODO
 

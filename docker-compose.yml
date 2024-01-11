@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  postgresql:
+    container_name: postgresql
+    image: "postgres:latest"
+    restart: always
+    env_file:
+      - ./.env.local
+    networks:
+      - database
+    ports:
+      - "15432:5432"
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+
+networks:
+  database:
+    driver: bridge
+
+volumes:
+  db-data: null
